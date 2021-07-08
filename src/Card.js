@@ -1,24 +1,25 @@
-import React from 'react'
+import React from "react";
 
-function Card({character, clickAction}){
-  // can also: const {name, image} = character and then just pass name and image
+// prettier-ignore
+function Card({character, clickAction}) { //addFavorite, removeFavorite = clickAction
+  const {name, image} = character
 
-  function handleClick(e) {
-    // if (addFavorite) {
+  const handleClick = ( event ) => {
+    // if ( addFavorite ) {
     //   addFavorite(character)
     // } else {
     //   removeFavorite(character)
     // }
     clickAction(character)
   }
+ 
 
-    return (
-        <li onClick={handleClick}>
-          <h2>{character.name}</h2>
-          <img src={character.image} alt="character-image"/>
-        </li>
-    )
+  return (
+    <li onClick={handleClick}>
+      <h2>{name}</h2>
+      <img src={image} alt={name} />
+    </li>
+  );
 }
 
-
-export default Card
+export default Card;

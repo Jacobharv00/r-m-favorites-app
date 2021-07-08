@@ -1,53 +1,43 @@
-import React, { Component } from 'react'
-import './App.css'
-import CharacterList from './CharacterList'
-import Favorites from './Favorites'
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import CharacterList from "./CharacterList";
+import Favorites from "./Favorites";
 
-class App extends Component {
+// prettier-ignore
+function App() {
+  const [characters, setCharacters] = useState([]);
+  const [favorites, setFavorites] = useState([]);
 
-  state = {
-    characters: [],
-    favorites: [] 
-  }
-
-  addFavorite = (character) => {
-    const foundCharacter = this.state.favorites.find(char => char === character)
-    if (!foundCharacter) {
-      this.setState({
-        favorites: [...this.state.favorites, character]
-      })
+  const addFavorite = ( character ) => {
+    const foundCharacter = favorites.find(char => char === character)
+      if (!foundCharacter) { // to make sure character doesn't get added multiple times
+      setFavorites([...favorites, character])
     }
   }
 
-  removeFavorite = (character) => {
-    const favorites = this.state.favorites.filter(favorite => favorite !== character)
-      this.setState({
-        favorites
-      })
-    }
+  const removeFavorite = ( character ) => {
+    const updatedFavorites = favorites.filter(favorite => favorite !== character) // give us a brand new list of the favorites who are not the character we are not trying to delete 
+    setFavorites(updatedFavorites)
+  }
 
-  componentDidMount() {
-    fetch('https://rickandmortyapi.com/api/character/?page=2')
-      .then(resp => resp.json())
-      .then(({results}) => this.setState({
-        characters: results // or results.results if not destructed
-      }))
-  }
-  
-  render() {
-    return (
-      <div className="App">
-        <Favorites 
-          favorites={this.state.favorites} 
-          removeFavorite={this.removeFavorite}
-        />
-        <CharacterList 
-          characters={this.state.characters} // coming from character state
-          addFavorite={this.addFavorite}  // coming from addFavorite function
-          />
-      </div>
-    )
-  }
+  useEffect(() => {
+    fetch("https://rickandmortyapi.com/api/character/?page=2")
+      .then((resp) => resp.json())
+      .then((data) => setCharacters(data.results));
+  }, [])
+
+  return (
+    <div className="App">
+      <Favorites
+        favorites={favorites}
+        removeFavorite={removeFavorite}
+      />
+      <CharacterList
+        characters={characters}
+        addFavorite={addFavorite}
+      />
+    </div>
+  )
 }
 
 export default App;
