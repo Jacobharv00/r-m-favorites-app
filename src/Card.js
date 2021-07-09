@@ -1,23 +1,18 @@
 import React from "react";
 
-// prettier-ignore
-function Card({character, clickAction}) { //addFavorite, removeFavorite = clickAction
-  const {name, image} = character
-
-  const handleClick = ( event ) => {
-    // if ( addFavorite ) {
-    //   addFavorite(character)
-    // } else {
-    //   removeFavorite(character)
-    // }
-    clickAction(character)
+function Card({ character, addFavorite, removeFavorite }) {
+  function handleClick(event) {
+    if (addFavorite) {
+      addFavorite(character);
+    } else {
+      removeFavorite(character);
+    }
   }
- 
 
   return (
     <li onClick={handleClick}>
-      <h2>{name}</h2>
-      <img src={image} alt={name} />
+      <h2>{character.name}</h2>
+      <img src={character.image} alt={character.name} />
     </li>
   );
 }
