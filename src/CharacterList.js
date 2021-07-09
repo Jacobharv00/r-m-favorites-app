@@ -6,7 +6,7 @@ function CharacterList({ characters, addFavorite }) {
     return (
       <Card
         key={character.id}
-        character={character}
+        character={character} //always double check what the card is expecting!
         addFavorite={addFavorite}
       />
     );

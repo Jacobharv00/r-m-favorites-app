@@ -6,7 +6,7 @@ function Favorites({ favorites, removeFavorite }) {
     return (
       <Card
         key={favorite.id}
-        character={favorite}
+        character={favorite} // always double check what the card is expecting!
         removeFavorite={removeFavorite}
       />
     );

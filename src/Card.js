@@ -1,6 +1,8 @@
 import React from "react";
 
 function Card({ character, addFavorite, removeFavorite }) {
+  const { name, image } = character;
+
   function handleClick(event) {
     if (addFavorite) {
       addFavorite(character);
@@ -10,9 +12,9 @@ function Card({ character, addFavorite, removeFavorite }) {
   }
 
   return (
-    <li onClick={handleClick}>
-      <h2>{character.name}</h2>
-      <img src={character.image} alt={character.name} />
+    <li onClick={handleClick} style={{ cursor: "pointer" }}>
+      <h2>{name}</h2>
+      <img src={image} alt={name} />
     </li>
   );
 }
